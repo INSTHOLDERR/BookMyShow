@@ -16,9 +16,9 @@ app.use("/",router);
 //     return res.json("Get end point");
 // });
 
-// app.get("/*",(req,res)=>{
-//     return res.sendFile(path.resolve("./dist/index.html"));
-// });
+app.get("/*",(req,res)=>{
+    return res.sendFile(path.resolve("./dist/index.html"));
+});
 
 conn().then(()=>{
     app.listen(process.env.VITE_PORT , error=>{

@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import React, { useState,useEffect } from 'react';
     
 function Register(){
 
-    const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
 
@@ -21,13 +22,23 @@ function Register(){
             }
         })
         .catch(error =>{
-            console.log(error);
+            // console.log(error);
+            alert("error")
+            setUsername('');
+            setPassword('');
         })
     }
     
 
     return(
         <div>
+<h2>Navigation</h2>
+<span><Link to={"/"}>Register</Link></span>
+ <span><Link to={"/login"}>Login</Link></span>
+
+
+
+
     <h2>Register</h2>
       <div>
 

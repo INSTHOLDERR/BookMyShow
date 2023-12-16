@@ -6,9 +6,9 @@ const { sign } = jwt;
 
 export async function register(req,res){
     try {
-        let { username, password } = req.body;
+        let { username, password ,repassword} = req.body;
         console.log(req.body);
-        if( username.length<4 && password.length<4 ){
+        if( username.length<4 || password.length<4 || password !== repassword){
             return res.status(401).send("invalid");
         }
         let hashedPass = await bcrypt.hash(String(password), 10);

@@ -14,11 +14,11 @@ function Addmovies() {
     }
 
     try {
-      const base64image = await convertToBase64(image);
+      // const base64image = await convertToBase64(image);
 
       const response = await axios.post('http://localhost:3000/upload', {
         moviename: moviename,
-        image: base64image
+        image: image
       });
 
       alert("Registered successfully");

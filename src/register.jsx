@@ -77,7 +77,7 @@ function Register() {
             <figure>
               <img src="./images/a.jpg" alt="sign up image" />
             </figure>
-            <Link to="/login" className="signup-image-link">
+            <Link to="/login" replace={true} className="signup-image-link">
               I am already a member
             </Link>
           </div>

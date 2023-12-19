@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userSchema from "./models/userschema.js";
+import fileSchema from "./models/file.schema.js";
 const { sign } = jwt;
 
 
@@ -53,5 +54,35 @@ export async function login(req, res) {
     } catch (error) {
         console.log(error);
         res.status(500).send("Error");
+    }
+}
+
+export async function upload(req,res){
+    try {
+         let {image,moviename}=req.body;
+    let result=await fileSchema.create({
+        image,
+        moviename
+    });
+    if(result){
+        return res.json("upload successful");
+    }
+    return res.status(500).send("error");
+    } catch (error) {
+        if(error){
+            console.log(error);
+        }
+    }
+   
+}
+
+export async function view(req,res){
+    try {
+        // let {image,moviename}=req.body;
+        let result=await fileSchema.find();
+        return res.status(200).json(result);
+    } catch (error) {
+        if(error)
+        res.status(200).send(error);
     }
 }

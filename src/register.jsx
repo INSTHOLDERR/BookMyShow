@@ -1,20 +1,26 @@
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
+import "./style/log.css";
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const reg = async () => {
+  const navigate = useNavigate();
+
+  const reg = async (e) => {
+    e.preventDefault();
+
     try {
       setLoading(true);
-      setError('');
+      console.log(username);
 
-      const response = await axios.post('http://localhost:5000/register', {
+      const response = await axios.post('http://localhost:3000/register', {
         username,
         password,
         repassword,
@@ -25,36 +31,65 @@ function Register() {
         setUsername('');
         setPassword('');
         setRepassword('');
+        navigate("/login");
       }
     } catch (error) {
       console.error("Registration failed", error);
-      setError("Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div>
-      <h2>Navigation</h2>
-      <span><Link to={"/"}>Home</Link></span>
-      <span><Link to={"/login"}>Login</Link></span>
-
-      <h2>Register</h2>
-     
-        <label>Username:</label>
-        <input type="text" id='username' value={username} onChange={(e) => setUsername(e.target.value)} />
-
-        <label>Password:</label>
-        <input type="password" id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-     
-        <label>Re-Password:</label>
-        <input type="password" id='repassword' value={repassword} onChange={(e) => setRepassword(e.target.value)} />
-   
-      <button onClick={reg} disabled={loading}>Register</button>
- 
-    </div>
+    <section className="signup">
+      <div className="container">
+        <div className="signup-content">
+          <div className="signup-form">
+            <h2 className="form-title">Sign up</h2>
+            <form onSubmit={reg} className="register-form" id="register-form">
+              <div className="form-group">
+                <label htmlFor="name">
+                  <i className="zmdi zmdi-account material-icons-name"></i>
+                </label>
+                <input type="text" id='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='username' />
+              </div>
+              <div className="form-group">
+                <label htmlFor="pass">
+                  <i className="zmdi zmdi-lock"></i>
+                </label>
+                <input type="password" id='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="re-pass">
+                  <i className="zmdi zmdi-lock-outline"></i>
+                </label>
+                <input
+                  type="password" id='repassword' value={repassword} onChange={(e) => setRepassword(e.target.value)}
+                  placeholder="Repeat your password"
+                />
+              </div>
+              <div className="form-group form-button">
+                <button type="submit" id="signup" className="form-submit" disabled={loading}>Register</button>
+              </div>
+            </form>
+          </div>
+          <div className="signup-image">
+            <figure>
+              <img src="./images/a.jpg" alt="sign up image" />
+            </figure>
+            <Link to="/login" className="signup-image-link">
+              I am already a member
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default Register;
+
+
+
+
+

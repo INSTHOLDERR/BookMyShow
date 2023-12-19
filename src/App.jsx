@@ -15,6 +15,7 @@ function App(){
         <BrowserRouter>
         <Routes>
             <Route index element={<Register/>}/>
+            <Route path="/register" element={<TokenCheck><Register/></TokenCheck>}/>
             <Route path="/home" element={<TokenCheck><Home/></TokenCheck>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/addmovies" element={<Addmovies/>}/>
